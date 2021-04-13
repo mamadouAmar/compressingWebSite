@@ -1,0 +1,51 @@
+http://www.telecom.ulg.ac.be/teaching/notes/total0/elen036/node57.html
+
+ La représentation numérique de base est le PCM (Pulse Code Modulation). Elle n'est rien de plus que le signal échantillonné quantifié. Selon le niveau qualitatif souhaité, la fréquence d'échantillonnage sera choisie entre 7 et 78 [kHz]. La résolution sera comprise entre 8 et 16 bits.
+
+D'autres techniques sont:
+
+DPCM
+    Par cette technique, la compression s'obtient en codant la différence entre deux valeurs échantillonnées successives plutôt que les valeurs elles-mêmes, ce qui nécessite un plus petit nombre de bits. 
+ADPCM
+    Adaptive Differential Pulse Code Modulation. Il s'agit d'une technique de transformation d'un son analogique en valeurs numériques, avec compactage final de l'ordre de 2 à 4, selon l'algorithme utilisé. La méthode consiste à coder la différence entre un échantillon et la valeur prévisible de l'échantillon suivant. Elle est utilisée par plusieurs cartes son mais aussi dans les standards de l'ITU pour des transmissions téléphoniques numériques. Il existe trois variantes (A, B et C) de l'algorithme. 
+Codage adaptatif.
+    Dans le cas particulier des signaux audio, on peut utiliser les caractéristiques psycho-acoustiques de l'oreille humaine pour définir des algorithmes plus efficaces encore. En effet, il se produit dans la perception auditive un effet de masquage par lequel les sons contenant des niveaux faibles ne sont pas perçus. En conséquence, avant la compression, on analyse le signal par bandes de fréquences dont on mesure le niveau. Les bandes contenant des signaux de faible amplitude sont supprimés. Plusieurs algorithmes de compression sont basés sur ce principe. Par exemple, le procédé MUSICAM a été choisi pour les compression des signaux audio dans le format MPEG-1. 
+CELP
+    Code Excited Linear Predictor. Le principe de cette méthode est similaire à celui de l'ADPCM: on cherche à prévoir les échantillons suivants de manière à ne devoir coder que la différence. Plus la prédiction concorde avec la valeur échantillonnée et plus la différence sera faible. Utilisé pour des signaux de parole, le CELP comprend un algorithme de synthèse vocale en guise de prédiction. Ce type d'algorithme sert à obtenir des hauts taux de compression, pouvant conduire à des débits inférieurs à 20 [kb/s]. 
+
+Voici quelques standards de compression numériques audio:
+
+TS GSM 06.10
+    Cette norme a été définie par l'ETSI pour le codage de parole pour GSM. Elle est conçue pour offrir un débit de 13 [kb/s] et se prête à des transmissions de mauvaise qualité. 
+Famille G.72x
+    Cette famille de standards résulte de travaux de l'ITU pour permettre des communications à bande étroite sur réseau téléphonique. Les standards peuvent être utilisés dans diverses applications allant de la voix par modem à la vidéoconférence où ils s'utiliseront en conjonction avec la norme H.261 de compression vidéo.
+
+    La norme G.721 fut la première norme pour coder la parole à 32 [kb/s] sur des canaux téléphoniques (de 300 à 3400 [Hz]). Elle fut remplacée en 1990 par la norme G.726 qui permet d'obtenir des débits de 16, 24, 32 et 40 [kb/s]. Ces deux normes utilisent la représentation ADPCM.
+
+    L'ITU développa ensuite la norme G.722 pour des canaux téléphoniques de 8 [kHz] de largeur de bande. Il s'agit d'une norme hybride qui découpe la bande de fréquences en deux parties: une bande de fréquences de 0 à 4 [kHz] et une autre de 4 [kHz] à 8 [kHz], toutes deux échantillonnées à 16 [kHz]. Ces deux bandes sont respectivement comprimées à 48 et 16 [kb/s] pour ne former qu'un flux unique à 64 [kb/s] en sortie de l'encodeur.
+
+    Pour des débits plus faibles, il existe la norme G.728 qui fournit des résultats au moins aussi bon que la norme G.721 mais à un débit de 16 [kb/s]. Cette performance est obtenue en remplaçant le codeur ADPCM par un codeur CELP.
+
+    L'ITU a défini la norme H.324 de vidéoconférence pour des débits inférieurs à 64 [kb/s]. Elle inclut la norme G.723, qui dans son mode à 6, 3 [kb/s] fournit des résultats similaires au mode 32 [kb/s] de la norme G.726.
+
+    Un consortium de fabricants a décidé de recourir à la norme G.723 pour permettre des communications par Internet dans le cadre de la norme H.323 qui n'est autre que le pendant de la norme H.324 pour des réseaux à qualité de service inférieure. Une version améliorée a encore été développée; il s'agit de la norme G723.1.
+    Le tableau 4.1 reprend les techniques de compression pour la voix. 
+
+
+
+La compression de signal a certaines particularités :
+
+        Des régularités, répétitions.
+        Des continuités de valeur ou de variation de valeur.
+        Du bruit : mauvaise compression classique.
+        La précision absolue n'est pas nécessaire.
+
+Les idées pour la compression :
+
+        Codage relatif, on compresse la dérivée.
+        Codage prédictif, on compresse la différence par rapport à la dérivée.
+        Élimination des haute fréquences (non visibles, inutiles, capteur).
+
+Dans tous les cas, la méthode se termine par un équilibrage de probabilité pour coder les informations de manière efficace.
+
+

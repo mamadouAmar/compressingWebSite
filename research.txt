@@ -1,0 +1,132 @@
+Le traitement du signal est la discipline qui développe et étudie les 
+techniques de traitement, d'analyse et d'interprétation des signaux. 
+Parmi les types d'opérations possibles sur ces signaux, on peut dénoter 
+le contrôle, le filtrage, la compression et la transmission de données, 
+la réduction du bruit, la déconvolution, la prédiction, l'identification, 
+la classification, etc.
+
+TFD :
+    Désormais, nous savons qu'un signal contient la même information 
+    sous forme discrète que sous forme analogique, pourvu que le 
+    critère de Shannon image 32 bis soit vérifié, avec L = wmax-wmin. 
+    La transformation de Fourier discrète est censée être l'équivalent, 
+    pour un signal discret, de la transformation de Fourier, pour un 
+    signal analogique.
+
+    On appelle signal discret de longueur finie d'un signal analogique 
+    f(t), et on note (fn)[0,N-1], tout ensemble de N valeurs successives 
+    (N fini) provenant de l'échantillonnage de f(t) à une certaine 
+    pulsation we. Un signal discret de longueur finie est composé de 
+    valeurs fn qui forment un sous-ensemble des valeurs fn du signal 
+    discret (fn)Z. Alors que le signal discret (fn)Z peut contenir toute 
+    l'information du signal f(t), si we vérifie le critère de Shannon, 
+    un signal discret de longueur finie (fn)[0,N-1] ne peut bien sûr pas 
+    contenir toute cette information.
+
+    De la même façon, on appelle sous-spectre discret de longueur finie, 
+    et on note image 36[0,M-1], tout ensemble de M valeurs successives 
+    (M fini) provenant de l'échantillonnage de co02 image 5 à une certaine 
+    pulsation wf. Un spectre discret de longueur finie est composé de 
+    valeurs image 35 qui forment un sous-ensemble des valeurs image 35 du 
+    spectre discret image 36Z. Un spectre discret de longueur finie ne peut 
+    pas contenir, lui non plus, toute l'information de départ.
+
+    C'est entre ces deux nouveaux objets que l'on va essayer de définir 
+    deux transformations inverses l'une de l'autre, que l'on appellera 
+    "transformation de Fourier discrète" et "transformation de Fourier 
+    discrète inverse". La raison en est double :
+
+    D'après ce qui a été dit plus haut, il ne peut exister de transformation 
+    inversible entre un signal discret et un spectre discret que si aucun 
+    des deux ne contient l'information totale. Or, c'est le cas d'un signal 
+    discret de longueur finie et d'un spectre discret de longueur finie.
+
+    En informatique, on ne sait traiter que des ensembles de données de 
+    cardinal fini, ce qui est le cas d'un signal discret de longueur finie 
+    et d'un spectre discret de longueur finie.
+
+    On appelle transformation de Fourier discrète l'application qui, à un 
+    signal discret (fn)[0,N-1] de longueur N finie, associe la suite 
+    (Fm)[0,N-1] de N valeurs complexes, appelée transformée de Fourier 
+    discrète de (fn)[0,N-1], et définie par :
+
+
+FFT:
+    Pour calculer la transformée de Fourier discrète d'un signal discret 
+    (fn)[0,N-1] à l'aide de la formule (3.11), il semble que l'on ait à 
+    effectuer N multiplications pour chaque valeur Fm, c'est-à-dire N2 
+    multiplications en tout. Pour une image numérique usuelle, de taille 
+    256 x 256, cela fait 2564 multiplications, soit à peu près 4 milliards 
+    de multiplications ! Cette seule constatation démontre la nécessité de 
+    trouver un algorithme "rusé".
+
+    Il existe de nombreux algorithmes "rusés" permettant le calcul de la 
+    transformée de Fourier discrète d'un signal discret de longueur finie. 
+    Nous n'en présenterons qu'un, appelé "algorithme de la transformation 
+    de Fourier rapide" (TFR, ou FFT en anglais), dont la programmation en 
+    langage C sera effectuée lors des deux premières séances de travaux 
+    pratiques.
+
+
+TCD:
+    La transformée en cosinus discrète ou TCD (de l'anglais : DCT ou 
+    Discrete Cosine Transform) est une transformation proche de la 
+    transformée de Fourier discrète (DFT). Le noyau de projection est 
+    un cosinus et crée donc des coefficients réels, contrairement à la 
+    DFT, dont le noyau est une exponentielle complexe et qui crée donc 
+    des coefficients complexes. On peut cependant exprimer la DCT en 
+    fonction de la DFT, qui est alors appliquée sur le signal symétrisé. 
+
+    La DCT est une fonction linéaire inversible RN → RN ou de manière 
+    équivalente une matrice carrée N × N inversible. Il existe plusieurs 
+    légères variantes de la DCT. Voici les quatre types les plus connus.
+
+    Le développement des algorithmes de calcul rapide des transformées DCT 
+    se basent sur la possibilité de décomposer la matrice de définition sous 
+    forme d'un produit de matrices dont le calcul est plus simple, et permet 
+    de réduire le nombre de multiplications scalaires, en profitant des 
+    identités remarquables de périodicité et symétries des fonctions 
+    sinusoïdales. Ainsi, on peut décomposer toute transformée DCT de RN en 
+    transformées plus simples en décomposant N en produit de facteurs premiers, 
+    et en composant des sous-transformées dans Rn où n est l'un de ces facteurs. 
+    En particulier, de nombreuses optimisations ont été développées quand N est 
+    une puissance de 2. 
+
+fenêtre:
+    En traitement du signal, le fenêtrage est utilisé dès que l'on 
+    s'intéresse à un signal de longueur volontairement limitée. En effet, 
+    un signal réel ne peut qu'avoir une durée limitée dans le temps ; de 
+    plus, un calcul ne peut se faire que sur un nombre fini de points.
+    Pour observer un signal sur une durée finie, on le multiplie par une 
+    fonction fenêtre d'observation (également appelée fenêtre de pondération 
+    ou d'apodisation). La plus simple est la fenêtre rectangulaire (ou 
+    porte) 
+
+    La TF du signal analysé est convoluée avec la TF de la fenêtre ; dans 
+    l'idéal, pour ne pas biaiser le spectre initial, il faudra que l'allure 
+    de la fenêtre spectrale soit une fonction de Dirac. Or, le signal 
+    temporel ayant un spectre en fonction de dirac est un signal constant 
+    infini, ce qui est impossible en pratique.
+
+    Les allures spectrales des fenêtres de pondérations présentent une 
+    succession de lobes : pour se rapprocher d'une fonction de Dirac, il 
+    faut que le lobe principal soit le plus étroit possible, tandis que 
+    les lobes secondaires doivent être les plus faibles possible. Plus le 
+    lobe principal d'une fenêtre aura tendance à être étroit, plus ses 
+    lobes secondaires seront importants...
+    Il y a donc toujours un compromis à faire entre largeur du lobe 
+    principal et importance des lobes secondaires. 
+wikipedia.org
+
+compression
+    Cette opération consiste à réduire la taille d'un fichier numérique
+    (texte, image, son, vidéo ...)
+    Compression sans perte :
+        − Codage RLE (Run Length Encoding),
+        − Codage Huffman
+        − Codage LZW.
+    Compression avec pertes :
+        − MP3, Ogg Vorbis,
+        − JPEG
+        − MPEG
+    

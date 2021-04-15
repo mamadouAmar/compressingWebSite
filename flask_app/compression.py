@@ -173,4 +173,4 @@ def compress(filename,threshold,ratio,makeup,attack,release,wout=True,plot=False
     print('Completed in '+str(elapsed)+' milliseconds.')    
     return dataCs,dataCs_bit
     
-a, b = compress("tictac.wav",0,2,0,1000,1000,wout=True,plot=True)
+##a, b = compress("tictac.wav",0,2,0,1000,1000,wout=True,plot=True)

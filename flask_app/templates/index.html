@@ -55,8 +55,11 @@ http://www.templatemo.com/tm-517-timeless
                             </div>
                             <div class="tm-timeline-description-wrap">
                                 <div class="tm-bg-dark tm-timeline-description">
-                                    <form action="" method="POST">
-                                        <input type="file" />
+                                    <form action="http://localhost:5000/resultat" method="post" enctype="multipart/form-data">
+                                        <input type="file" name='myFile'/>
+                                        <div>
+                                            <button type="submit">compresser</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -73,7 +76,7 @@ http://www.templatemo.com/tm-517-timeless
                             </div>
                             <div class="tm-timeline-description-wrap">
                                 <div class="tm-bg-dark-light tm-timeline-description">
-                                   <a href="fileCompressed.wav" download="fileCompressed.wav">telecharger le fichier compresse</a>
+                                   <a href="{{ fileCompressed }}" download="{{ fileCompressed }}">telecharger le fichier compresse</a>
                                 </div>
                             </div>
                         </div>

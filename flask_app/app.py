@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 import compression
 
 
@@ -15,5 +15,8 @@ def index():
 def resultat():
     results = request.files
     filename = results['myFile']
-    fileCompressed, b = compression.compress(filename, 0, 2, 0, 1000, 1000, True, True)
-    return render_template('index.html', fileCompressed)
+    fileCompressed, b = compression.compress(filename, 0, 2, 0, 1000, 1000, False, False)
+    response = make_response(fileCompressed)
+    response.headers["Content-type"] = "application/wav"
+    response.headers["Content-Disposition"] = "attachment; filename=compressed.wav"
+    return response

@@ -36,13 +36,13 @@ def inputwav(filename):
         ch: number of audio channels. 1 = mono, 2 = stereo
         """
     data, sr = sf.read(filename)
-    print('Decoding "'+filename+'"...')
-    print('Sample rate is '+str(sr)+'...')
+    # print('Decoding "'+filename+'"...')
+    # print('Sample rate is '+str(sr)+'...')
     try:
         ch=len(data[0,])
     except:
         ch=1
-    print('File contains '+str(ch)+' audio channel(s)...')
+    # print('File contains '+str(ch)+' audio channel(s)...')
         #Reshape the data so other functions can interpret the array if mono.
         #basically transposing the data
     if ch==1:
@@ -101,9 +101,11 @@ def compress(filename,threshold,ratio,makeup,attack,release,wout=True,plot=False
     """
     start = time.time()
     if ratio < 1.0:
-        print('Ratio must be > 1.0 for compression to occur! You are expanding.')
+        pass
+        # print('Ratio must be > 1.0 for compression to occur! You are expanding.')
     if ratio==1.0:    
-        print('Signal is unaffected.')
+        pass
+        # print('Signal is unaffected.')
     n, data, data_dB,sr,ch= inputwav(filename)
         #Array for the compressed data in dB
     dataC=data_dB.copy()
@@ -111,7 +113,7 @@ def compress(filename,threshold,ratio,makeup,attack,release,wout=True,plot=False
     a=np.exp(-np.log10(9)/(44100*attack*1.0E-3))
     re=np.exp(-np.log10(9)/(44100*release*1.0E-3))
         #apply compression
-    print('Compressing...')
+    # print('Compressing...')
     for k in range(ch):
         for i in range (n):
             if dataC[i,k]>threshold:
@@ -123,7 +125,7 @@ def compress(filename,threshold,ratio,makeup,attack,release,wout=True,plot=False
     gain=np.subtract(dataC,data_dB)
     sgain=gain.copy()
         #smoothen gain
-    print('Smoothing...')
+    # print('Smoothing...')
     for k in range(ch):
         for i in range (1,n):
             if sgain[i-1,k]>=sgain[i,k]:
@@ -163,14 +165,15 @@ def compress(filename,threshold,ratio,makeup,attack,release,wout=True,plot=False
         ax1.set_xlabel('Time (s)')
         #write data to 16 bit file
     if wout==True:
-        print('Exporting...')
-    sf.write(filename[0:len(filename)-4]+'_compressed.wav',dataCs_bit,
-                    sr,'PCM_16')
-    end=time.time()
-    elapsed=int(1000*(end-start))
-    print('Done!')
-    print('...............................')
-    print('Completed in '+str(elapsed)+' milliseconds.')    
+        pass
+        # print('Exporting...')
+    # sf.write(filename[0:len(filename)-4]+'_compressed.wav',dataCs_bit,
+                    # sr,'PCM_16')
+    # end=time.time()
+    # elapsed=int(1000*(end-start))
+    # print('Done!')
+    # print('...............................')
+    # print('Completed in '+str(elapsed)+' milliseconds.')    
     return dataCs,dataCs_bit
     
 ##a, b = compress("tictac.wav",0,2,0,1000,1000,wout=True,plot=True)
